@@ -1,0 +1,57 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #eef2f7;
+    color: #333;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+.card-header {
+    background: linear-gradient(135deg, #007bff, #6610f2);
+    color: white;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-custom {
+    border-radius: 8px;
+    padding: 8px 15px;
+    font-weight: bold;
+}
+
+.btn-search {
+    background: #28A745;
+    color: white;
+}
+
+.btn-add {
+    background: #ffc107;
+    color: black;
+}
+
+.table thead {
+    background: #343a40;
+    color: white;
+}
+
+.modal-content {
+    border-radius: 10px;
+}
+
+.form-control {
+    border-radius: 8px;
+}

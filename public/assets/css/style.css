@@ -1,0 +1,230 @@
+body {
+	background-color:#800000
+	
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.header{
+    background-color: #ff732b;
+    box-shadow: 0 1px 25px #000;
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+}
+h2{
+    font-size: 28px;
+    font-weight: 600;
+    margin: 10px 0 10px 0;
+}
+h3{
+    font-size: 30px;
+    font-weight: 600;
+    margin: 10px 0 10px 0;
+}
+.spinwheel{
+    margin-top: 4%;
+    text-align: center;
+}
+.spinwheel img{
+    width: 64%;
+    align-items: center;    
+}
+ .spinwheel .logo img{
+    width: 100% ;
+    align-items: center; 
+    margin-bottom: 30%;   
+}
+.spinwheel .inner-wheel{
+    position: absolute;
+    display: block;
+    top: 9%;
+    left: 26.5%;
+    width: 46.5%;
+    z-index: -1;    
+    
+}
+
+
+@media (min-width: 600px){
+    .spinwheel #resultAndar, .spinwheel #resultBahar {    
+        position: absolute;
+        display: block;
+        top: 29%;
+        left: 0%;
+        right:0%;
+         font-size: 40px;
+         width: 100%;
+         font-weight: 600;
+         content: "";
+         min-height: 1%;
+     } 
+     .spinwheel .inner-wheel{
+        position: absolute;
+        display: block;
+        top: 8.5%;
+        left: 26.5%;
+        width: 46.5%;
+        z-index: -1;    
+        
+    }
+       
+}
+@media (min-width: 1000px){
+    .spinwheel #resultAndar, .spinwheel #resultBahar {    
+        position: absolute;
+        display: block;
+        top: 31%;
+        left: 0%;
+        right:0%;
+         font-size: 40px;
+         width: 100%;
+         font-weight: 600;
+         content: "";
+         min-height: 1%;
+     } 
+     .spinwheel .inner-wheel{
+        position: absolute;
+        display: block;
+        top: 9%;
+        left: 26.5%;
+        width: 46.5%;
+        z-index: -1;    
+                
+    }
+    #searchResults .btn{
+        margin-top: 30px;
+    }
+      
+    
+}
+@media (max-width: 576px) { 
+    .searchResults label{
+        text-align: center;
+    } 
+}
+
+ #drawResult{
+    background: #fff;
+    display: block;
+    border-radius: 5px;
+    animation: none;
+    z-index: 12;
+    min-height: 50px;
+}
+.spinwheel #finalResult{    
+    background: #fff;
+    display: inherit;
+    border-radius: 5px;
+    animation: none;
+    z-index: 12;
+    min-height: 50px;
+    margin-bottom: 0px;
+    font-size: 35px;
+    font-weight: 600;
+}
+.spinwheel .live-result-text {    
+    animation:blinkingText 1.2s infinite;}
+    @keyframes blinkingText{
+        0%{     color: #ffc91f;    }
+        49%{    color: #ffc91f; }
+        60%{    color: transparent; }
+        99%{    color:transparent;  }
+        100%{   color: #ffc91f;    }
+    }
+.spinwheel a{
+    margin-top: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+}
+.banner-img{
+    margin-top: 10%;
+}
+#searchResults .form-group{
+text-align: left;
+
+}
+#searchResults .input-group .form-control {
+    position: relative;
+    z-index: 2;   
+    
+}
+.resultList td,.resultList th{
+    text-align: center;
+    font-size:20px;
+    background-color: #0a2841;
+    color: #fff;
+}
+
+label{
+    font-size: 18px;
+}
+
+.marquee{
+    background-color: #fff;
+    height: 45px;
+    width: 100%;
+    font-size: 25px;
+    font-weight: 600;
+    color: #1c003f;
+    margin-top: 10px;
+    padding: 0 !important;
+    border-radius:5px;
+}
+.mhead{
+    margin-top: 15px;
+    font-size: 22px;
+    color: #1c003f;
+}
+.hhead{
+    margin-top: 15px;
+    font-size: 30px;
+    color: #fff;
+}
+.btn-result{
+    background-color: #fc6216;
+    color: #fff;
+}
+.btn-result:hover{
+    background-color: #fc6216;
+    color: #800000;
+}
+.disclaimer p{
+    font-weight: 600;
+    color: #fff;;
+    margin-top: 50px;
+}
+.footer {
+    padding: 15px 0;
+    text-align: center;
+    color: #fff;
+    background-color: #ff732b;
+    
+    font-weight: 600;
+}
+
+@keyframes spinWheel {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.inner-wheel {
+    position: absolute;
+    display: block;
+    top: 9%;
+    left: 26.5%;
+    width: 46.5%;
+    z-index: -1;
+    transition: transform 5s ease-in-out;
+}
