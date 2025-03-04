@@ -56,11 +56,6 @@
             transform: rotate(7200deg);
         }
 
-        /* .spin-animation {
-            transform: rotate(150deg);
-        } */
-
-        /* Two full spins */
         .marquee {
             background-color: #fff;
             height: 45px;
@@ -137,7 +132,7 @@
             <div class="col-xs-5">
                 <img class="inner-wheel" id="img1" src="assets/images/spinwheel-com.png" alt="wheel">
                 <img src="assets/images/spinwheel-stand-andar-red-blue.png">
-                <div id="resultAndar">   - </div>
+                <div id="resultAndar"> - </div>
             </div>
             <div class="col-xs-2">
                 <img src="assets/images/play-new-gol-win.png">
@@ -154,6 +149,11 @@
             </div>
         </div>
     </div>
+
+    <div class="container-fluid text-center ">
+        <img class="banner-img" src="assets/images/meghalaya-2.jpg" width="50%">
+    </div>
+    <div class="container disclaimer text-center"><p>Disclaimer : Purchase of lottery using this website is strictly prohibited in the states where lotteries are banned. You must be above 18 years to play Online Lottery.</p></div>
 
     <div class="footer">
         &copy; 2020 - 2025 Play New Gold Win. All Rights Reserved.

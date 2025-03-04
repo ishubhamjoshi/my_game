@@ -116,7 +116,7 @@ class DrawResultController extends Controller
                 $resultHistory->save();
             }
         } else {
-            $drawResult = ResultHistory::whereDate('date', $date)->where('time', '<', $currentTime)->orderBy('time', 'desc')->first();
+            $drawResult = DrawResult::whereDate('date', $date)->where('time', '<', $currentTime)->orderBy('time', 'desc')->first();
         }
 
         $result = empty($drawResult) ? strval(rand(10, 99)) : strval($drawResult->result);

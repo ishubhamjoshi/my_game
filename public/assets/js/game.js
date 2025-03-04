@@ -12,10 +12,9 @@ function nextDrawTime() {
     let hours = now.getHours();
     let minutes = now.getMinutes();
 
-    // If it's past 8 PM, set the next draw time to next day 9 AM
-    // if ((hours < 9) || (hours > 21 /* || (hours === 9 && minutes >= 0) */)) {
-    //     return "Tomorrow 09:00 AM";
-    // }
+    if ((hours < 9) || (hours > 21 || (hours === 21 && minutes >= 30))) {
+        return "Tomorrow 09:00 AM";
+    }
 
     // Calculate the next draw time in 15-minute intervals
     let nextMinutes = Math.ceil(minutes / 15) * 15;
@@ -39,16 +38,16 @@ function updateCountdown() {
     if (nextTime === "Tomorrow 09:00 AM") {
         let target = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0);
         let diff = target - now;
-    
+
         if (diff <= 0) {
             document.getElementById("remainingTime").innerHTML = "00:00:00";
             return;
         }
-    
+
         let hours = Math.floor(diff / (1000 * 60 * 60));
         let minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((diff % (1000 * 60)) / 1000) + 1;
-    
+
         document.getElementById("remainingTime").innerHTML =
             `${hours < 10 ? "0" : ""}${hours}:${minutes < 10 ? "0" : ""}${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
     } else {
@@ -91,57 +90,70 @@ function startSpin() {
     let hours = now.getHours();
     let minutes = now.getMinutes();
 
-    // if (hours > 9 || (hours === 9 && minutes >= 0)) { // Starts at 9:00 AM
-    //     if (hours <= 21 || (hours === 21 && minutes <= 30)) { // Ends at 9:30 PM
+    if (hours > 9 || (hours === 9 && minutes >= 0)) { // Starts at 9:00 AM
+        if (hours <= 21 || (hours === 21 && minutes <= 30)) { // Ends at 9:30 PM
             console.log("Spin started!");
             $("#img1, #img2").addClass("spin-animation");
-    
             setTimeout(() => {
-                // $("#img1, #img2").removeClass("spin-animation");
                 console.log("Spin ended!");
                 updateResults();
-            }, 5000);
-    //     }
-    // }
+            }, 500);
+        }
+    }
 }
 
 function updateResults() {
     $.ajax({
         url: "/get-latest-draw-result", // Adjust the route if needed
         method: "GET",
-        success: function(response) {
-            $("#finalResult").text(response.final);
-            $("#resultAndar").text(response.andar);
-            $("#resultBahar").text(response.bahar);
-
-            // Save result in local storage
-            localStorage.setItem("lastResult", JSON.stringify(response));
-
-            // Start spin and stop at correct positions
-            // spinWheel(response.andar, response.bahar);
+        success: function (response) {
+            spinWheel(response.andar, response.bahar);
         },
-        error: function() {
+        error: function () {
             console.log("No result available");
         }
     });
 }
 
-function spinWheel(andarNumber, baharNumber) {
-    let anglePerNumber = 36; // 360 degrees / 10 numbers
-    let randomSpins = 5 + Math.floor(Math.random() * 5); // 5-10 random full spins
+function spinWheel(resultAndar, resultBahar) {
+    // Set both resultAndar and resultBahar spins using a common function
+    var spin1 = getSpinValue(resultAndar);
+    var spin2 = getSpinValue(resultBahar);
 
-    let andarRotation = randomSpins * 360 + (andarNumber * anglePerNumber); // Adjust for correct stopping position
-    let baharRotation = randomSpins * 360 + (baharNumber * anglePerNumber); // Adjust for correct stopping position
+    rotateWheel('#img1', spin1, resultAndar, resultBahar);
+    rotateWheel('#img2', spin2, resultAndar, resultBahar);
+}
 
-    $("#img1").css({
-        "transition": "transform 5s ease-out",
-        "transform": `rotate(${andarRotation}deg)`
+// Get the spin value based on the result
+function getSpinValue(result) {
+    const spinValues = {
+        1: 114,
+        2: 77,
+        3: 41,
+        4: 4,
+        5: 329,
+        6: 293,
+        7: 258,
+        8: 221,
+        9: 186,
+        0: 150
+    };
+    return spinValues[result] || 150;
+}
+
+// General function to rotate the wheel
+function rotateWheel(selector, resultn, resultAndar, resultBahar) {
+    const deg = parseFloat(resultn) + 36000;
+    $(selector).css({
+        'transition': 'transform 8s cubic-bezier(0.25, 0.8, 0.25, 1)',
+        'transform': `rotate(${deg}deg)`
     });
-
-    $("#img2").css({
-        "transition": "transform 5s ease-out",
-        "transform": `rotate(${baharRotation}deg)`
-    });
+    $(selector)[0].addEventListener('transitionend', function () {
+        $("#img1, #img2").removeClass("spin-animation");
+        $("#finalResult").text(resultAndar.toString() + resultBahar.toString());
+        $("#resultAndar").text(resultAndar);
+        $("#resultBahar").text(resultBahar);
+    }, { once: true });
 }
 
 function getNextRunTime() {
@@ -157,7 +169,6 @@ function getNextRunTime() {
 }
 
 // Align first execution to the next 15-minute mark
-setTimeout(() => {
-    startSpin();
-    setInterval(startSpin, 15 * 60 * 1000); // Repeat every 15 minutes
+setTimeout(function () {
+    window.location.reload();
 }, getNextRunTime());

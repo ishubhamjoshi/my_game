@@ -117,8 +117,7 @@
                     success: function(response) {
                         var existingTimes = response.times;
 
-                        // for (var i = 540; i <= 1290; i += 15) {
-                        for (var i = 540; i <= 1410; i += 15) {
+                        for (var i = 540; i <= 1290; i += 15) {
                             var hours = Math.floor(i / 60);
                             var minutes = i % 60;
                             var ampm = hours >= 12 ? "PM" : "AM";
