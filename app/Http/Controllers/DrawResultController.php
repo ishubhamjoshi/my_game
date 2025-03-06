@@ -119,7 +119,7 @@ class DrawResultController extends Controller
             $drawResult = DrawResult::whereDate('date', $date)->where('time', '<', $currentTime)->orderBy('time', 'desc')->first();
         }
 
-        $result = empty($drawResult) ? strval(rand(10, 99)) : strval($drawResult->result);
+        $result = strval($drawResult->result);
         $firstValue = (int)$result[0];
         $secondValue = (int)$result[1];
 
