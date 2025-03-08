@@ -4,7 +4,6 @@ use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DrawResultController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ResultHistoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +34,5 @@ Route::post('draw-results/save', [DrawResultController::class, 'storeData'])->na
 Route::get('draw-results/getTimes', [DrawResultController::class, 'getTimes'])->name('draw-results.getTimes');
 Route::get('/get-latest-draw-result', [DrawResultController::class, 'getLatestDrawResult']);
 
-Route::get('result-history', [ResultHistoryController::class, 'index'])->name('result-history');
-Route::get('result-history/data', [ResultHistoryController::class, 'getData'])->name('result-history.data');
+Route::get('result-history', [DrawResultController::class, 'ResultIndex'])->name('result-history');
+Route::get('result-history/data', [DrawResultController::class, 'getResultData'])->name('draw-results.resultData');

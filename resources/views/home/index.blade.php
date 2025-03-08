@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>PLAY NEW GOLD WIN : LIVE</title>
+    <title>West-Bengal : LIVE</title>
     <meta charset="utf-8">
     <meta name="description" content="WWW.PLAYNEWGOLDWIN.COM : GET LIVE RESULTS">
     <meta name="keywords" content="play new gold win, playnewgoldwin.com, play new golden win, playnewgoldenwin.com, gold win lotto, gold win, golden lotto">
@@ -18,11 +18,11 @@
 
     <style>
         body {
-            background-color: #800000;
+            background-color: #581845;
         }
 
         .header {
-            background-color: #ff732b;
+            background-color: #c62828;
             box-shadow: 0 1px 25px #000;
             text-align: center;
             padding: 10px;
@@ -70,7 +70,7 @@
             padding: 15px 0;
             text-align: center;
             color: #fff;
-            background-color: #ff732b;
+            background-color: #c62828;
             font-weight: 600;
         }
 
@@ -121,9 +121,9 @@
     </div>
 
     <div class="container">
-        <h3 class="text-center">Meghalaya | मेघालय</h3>
+        <h3 class="text-center" style="color: #fff;">West-Bengal | पश्चिम-बंगाल</h3>
         <div class="marquee">
-            <marquee>Result will be open every 15 minutes | रिजल्ट हर 15 मिनट में खुलेगा</marquee>
+            <marquee style="margin: 3px;">Welcome to West-Bengal Gold Win | रिजल्ट हर 15 मिनट में खुलेगा | वेस्ट-बंगाल गोल्ड विन में आपका स्वागत है | Result will be open every 15 minutes | भारत में खेला जाने वाला सबसे बड़ा खेल |</marquee>
         </div>
     </div>
 
@@ -151,7 +151,7 @@
     </div>
 
     <div class="container-fluid text-center ">
-        <img class="banner-img" src="assets/images/meghalaya-2.jpg" width="50%">
+        <img class="banner-img" src="assets/images/Bengal Glod.png" width="50%">
     </div>
     <div class="container disclaimer text-center"><p>Disclaimer : Purchase of lottery using this website is strictly prohibited in the states where lotteries are banned. You must be above 18 years to play Online Lottery.</p></div>
 

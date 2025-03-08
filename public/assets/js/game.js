@@ -35,8 +35,14 @@ function updateCountdown() {
     // Update the "Next Draw Time" display dynamically
     $("#nextDrawTime").text(nextTime);
 
-    if (nextTime === "Tomorrow 09:00 AM") {
-        let target = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0);
+    if (nextTime === "09:00 AM") {
+        let now = new Date();
+        let target;
+        if (now.getHours() < 9) {
+            target = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 9, 0, 0);
+        } else {
+            target = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 9, 0, 0);
+        }
         let diff = target - now;
 
         if (diff <= 0) {

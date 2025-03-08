@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DrawResult;
-use App\Models\ResultHistory;
 use Validator;
 
 class DrawResultController extends Controller
@@ -25,8 +24,6 @@ class DrawResultController extends Controller
 
         $totalRecords = $query->count();
 
-        $filteredRecords = $query->count();
-
         // Apply pagination
         $drawResults = $query->orderBy('time', 'asc')
             ->skip($start)
@@ -42,9 +39,48 @@ class DrawResultController extends Controller
         return response()->json([
             "draw" => intval($draw),
             "recordsTotal" => $totalRecords,
-            "recordsFiltered" => $filteredRecords,
+            "recordsFiltered" => $totalRecords,
             "data" => $drawResults,
             "time" => $time,
+        ]);
+    }
+
+    public function resultIndex()
+    {
+        return view('result_history.index');
+    }
+
+    public function getResultData(Request $request)
+    {
+        $date = $request->input('date', date('Y-m-d'));
+        $draw = (int) $request->input('draw', 1);
+        $start = (int) $request->input('start', 0);
+        $length = (int) $request->input('length', 10);
+
+        $query = DrawResult::whereDate('date', $date);
+
+        if ($date == now()->format('Y-m-d')) {
+            $currentTime = now()->setTimezone('Asia/Kolkata')->format('H:i:00');
+            $query->whereTime('time', '<=', $currentTime);
+        }
+
+        $totalRecords = $query->count();
+
+        $drawResults = $query->orderBy('time', 'asc')
+            ->skip($start)
+            ->take($length)
+            ->get()
+            ->map(function ($item) {
+                $item->formatted_time = date('h:i A', strtotime($item->time));
+                return $item;
+            });
+
+        return response()->json([
+            "draw" => $draw,
+            "recordsTotal" => $totalRecords,
+            "recordsFiltered" => $totalRecords,
+            "data" => $drawResults,
+            "time" => $drawResults->pluck('time')->toArray(),
         ]);
     }
 
@@ -107,14 +143,6 @@ class DrawResultController extends Controller
 
         if (in_array($currentTime, $times)) {
             $drawResult = DrawResult::whereDate('date', $date)->where('time', $currentTime)->orderBy('id', 'desc')->first();
-            $resultHistory = ResultHistory::whereDate('date', $date)->where('time', $currentTime)->orderBy('id', 'desc')->first();
-            if (empty($resultHistory)) {
-                $resultHistory = new ResultHistory();
-                $resultHistory->date = $drawResult->date;
-                $resultHistory->time = $drawResult->time;
-                $resultHistory->result = $drawResult->result;
-                $resultHistory->save();
-            }
         } else {
             $drawResult = DrawResult::whereDate('date', $date)->where('time', '<', $currentTime)->orderBy('time', 'desc')->first();
         }

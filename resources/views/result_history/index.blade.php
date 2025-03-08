@@ -68,7 +68,7 @@
                     destroy: true,
                     searching: false,
                     ajax: {
-                        url: "{{ route('result-history.data') }}",
+                        url: "{{ route('draw-results.resultData') }}",
                         data: {
                             date: $('#date').val()
                         }
