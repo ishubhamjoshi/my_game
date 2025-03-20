@@ -20,6 +20,9 @@
     <div class="container">
         <div class="card">
             <div class="card-header">
+                <button class="btn btn-warning btn-custom" id="changePasswordBtn">
+                    <i class="fa fa-key"></i> Change Password
+                </button>
                 <span><i class="fa fa-calendar-check"></i> Draw Results</span>
                 <button class="btn btn-add btn-custom" id="addEntry"><i class="fa fa-plus"></i> Add</button>
             </div>
@@ -75,6 +78,36 @@
         </div>
     </div>
 
+    <!-- Change Password Modal -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Change Password</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="currentPassword" class="form-label">Current Password</label>
+                        <input type="password" class="form-control" id="currentPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="newPassword" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="newPassword">
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm New Password</label>
+                        <input type="password" class="form-control" id="confirmPassword">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="updatePassword">Update Password</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -89,6 +122,8 @@
                     serverSide: true,
                     destroy: true,
                     searching: false,
+                    paging: false,
+                    info: false,
                     ajax: {
                         url: "{{ route('draw-results.data') }}",
                         data: { date: $('#date').val() }
@@ -149,6 +184,44 @@
                     loadTable();
                 }).fail(function(response) {
                     alert(response.responseJSON.message);
+                });
+            });
+
+            // Open Change Password Modal
+            $("#changePasswordBtn").click(function() {
+                $("#changePasswordModal").modal("show");
+            });
+
+            // Handle Change Password Request
+            $("#updatePassword").click(function() {
+                var currentPassword = $("#currentPassword").val();
+                var newPassword = $("#newPassword").val();
+                var confirmPassword = $("#confirmPassword").val();
+
+                if (newPassword !== confirmPassword) {
+                    alert("New passwords do not match!");
+                    return;
+                }
+
+                $.ajax({
+                    url: "{{ route('change-password') }}",
+                    method: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        current_password: currentPassword,
+                        new_password: newPassword,
+                        confirm_password: confirmPassword
+                    },
+                    success: function(response) {
+                        alert(response.message);
+                        $("#changePasswordModal").modal("hide");
+                        $("#currentPassword").val("");
+                        $("#newPassword").val("");
+                        $("#confirmPassword").val("");
+                    },
+                    error: function(xhr) {
+                        alert(xhr.responseJSON.message);
+                    }
                 });
             });
         });

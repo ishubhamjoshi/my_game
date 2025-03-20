@@ -17,8 +17,6 @@ class DrawResultController extends Controller
     {
         $date = $request->input('date', date('Y-m-d'));
         $draw = $request->input('draw');
-        $start = $request->input('start');
-        $length = $request->input('length');
 
         $query = DrawResult::whereDate('date', $date);
 
@@ -26,8 +24,6 @@ class DrawResultController extends Controller
 
         // Apply pagination
         $drawResults = $query->orderBy('time', 'asc')
-            ->skip($start)
-            ->take($length)
             ->get()
             ->map(function ($item) {
                 $item->formatted_time = date('h:i A', strtotime($item->time));
@@ -39,7 +35,6 @@ class DrawResultController extends Controller
         return response()->json([
             "draw" => intval($draw),
             "recordsTotal" => $totalRecords,
-            "recordsFiltered" => $totalRecords,
             "data" => $drawResults,
             "time" => $time,
         ]);
@@ -54,8 +49,6 @@ class DrawResultController extends Controller
     {
         $date = $request->input('date', date('Y-m-d'));
         $draw = (int) $request->input('draw', 1);
-        $start = (int) $request->input('start', 0);
-        $length = (int) $request->input('length', 10);
 
         $query = DrawResult::whereDate('date', $date);
 
@@ -67,8 +60,6 @@ class DrawResultController extends Controller
         $totalRecords = $query->count();
 
         $drawResults = $query->orderBy('time', 'asc')
-            ->skip($start)
-            ->take($length)
             ->get()
             ->map(function ($item) {
                 $item->formatted_time = date('h:i A', strtotime($item->time));
@@ -78,7 +69,6 @@ class DrawResultController extends Controller
         return response()->json([
             "draw" => $draw,
             "recordsTotal" => $totalRecords,
-            "recordsFiltered" => $totalRecords,
             "data" => $drawResults,
             "time" => $drawResults->pluck('time')->toArray(),
         ]);

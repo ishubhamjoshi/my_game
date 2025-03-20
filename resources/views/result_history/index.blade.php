@@ -67,6 +67,8 @@
                     serverSide: true,
                     destroy: true,
                     searching: false,
+                    paging: false,
+                    info: false,
                     ajax: {
                         url: "{{ route('draw-results.resultData') }}",
                         data: {

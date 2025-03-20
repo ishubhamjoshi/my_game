@@ -27,6 +27,7 @@ Route::get('/next-draw', [DrawResultController::class, 'getNextDraw']);
 
 Route::get('admin', [LoginController::class, 'login'])->name('login');
 Route::post('admin/login-user', [LoginController::class, 'loginUser'])->name('login-user');
+Route::post('/change-password', [LoginController::class, 'changePassword'])->name('change-password');
 
 Route::get('draw-results', [DrawResultController::class, 'index'])->name('draw-results');
 Route::get('draw-results/data', [DrawResultController::class, 'getData'])->name('draw-results.data');
